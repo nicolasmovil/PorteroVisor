@@ -1,0 +1,22 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# Este script se ejecuta al final de cada nivel de ejecución multiusuario.
+# Asegúrate de que el script devuelva "exit 0" en caso de éxito o cualquier otro
+# valor en caso de error.
+#
+# De forma predeterminada, este script no hace nada.
+
+# Imprimir la dirección IP si está disponible
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "Mi dirección IP es %s\n" "$_IP"
+fi
+
+# Reinicia la interfaz wlan0
+#sudo ifdown wlan0
+#sudo ifup wlan0
+
+exit 0
+
