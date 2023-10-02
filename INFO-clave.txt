@@ -1,0 +1,416 @@
+sudo python /home/admin/prueba1/25.py
+
+linphonecsh register --host 192.168.0.200 --username 1000 --password Nicolas01
+register sip:1000@192.168.0.200 Nicolas01 192.168.0.200:5060
+
+
+https://354f012f6cab.sn.mynetname.net:47892/
+     354f012f6cab.sn.mynetname.net:5060
+2011@354f012f6cab.sn.mynetname.net:5060
+
+2011@sip.jota.ar
+
+
+190.19.193.108
+4242
+4242aa
+
+--------------------
+nicolasmovil@gmail.com
+L)gX26uYg56
+Nicolas01!
+30310 extension
+------------------
+EcoVisión
+
+pbx.zadarma.com
+426415-100
+5kckj5s7AV
+
+426415-101
+kA23Gbsp4u
+
+426415-102
+8xv5aYA8em
+
+
+426415-102@pbx.zadarma.com
+8xv5aYA8em
+
+
+sudo systemctl stop lightdm
+sudo systemctl disable lightdm
+
+
+RESOLUCION DE LA CAMARA WEB DESDE /ROOT/.LINPHONEC
+
+VIDEO 
+[video]
+size=qcif
+display=0
+capture=1
+show_local=0
+
+prueba1expect .sh
+
+#!/usr/bin/expect -f
+
+# Inicia Twinkle-console
+spawn twinkle-console
+
+# Espera 2 segundos
+sleep 2
+
+# Envía la orden "call 100"
+send "call 100 -d Portero\r"
+
+sleep 15
+
+# Espera a que se complete la llamada
+# expect "Call completed"
+send "bye"
+
+
+chmod +x nombre_del_archivo.sh
+
+
+sudo nano /usr/share/alsa/alsa.conf
+defaults.ctl.card 1
+defaults.pcm.card 1    ??
+
+
+
+
+
+
+
+
+
+6.py
+
+
+import RPi.GPIO as GPIO  # Importa el módulo RPi.GPIO para controlar el GPIO
+import subprocess  # Importa el módulo subprocess para ejecutar comandos en la terminal
+import time  # Importa el módulo time para pausar la ejecución del programa
+
+# Configuración del GPIO
+GPIO.setmode(GPIO.BCM)  # Configura el modo del GPIO
+GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Configura el GPIO 4 como entrada con resistencia pull-up interna
+
+# Bucle principal
+while True:  # Inicia un bucle infinito
+    GPIO.wait_for_edge(4, GPIO.FALLING)  # Espera a que se detecte un flanco de bajada en el GPIO 4
+
+    # Abre la aplicación twinkle-console utilizando Expect
+    print("Abriendo la aplicación twinkle-console...")
+    subprocess.call(["expect", "-c", 'spawn twinkle-console; sleep 3; send "call 101\r"; sleep 30; send "bye\r"; expect eof'])
+
+    # Espera 1 segundo para evitar rebotes del botón
+    time.sleep(1)
+
+    # Mata la aplicación twinkle-console
+    print("Cerrando la aplicación twinkle-console...")
+    subprocess.call(["pkill", "twinkle-console"])
+    print("La aplicación twinkle-console ha sido cerrada.")
+
+----------------------
+
+
+
+configuracion de la gansdtrem
+
+extensioenes 
+2000 portero
+2001 encargado
+
+2011 dto1
+2012 dto1
+2013 dto1
+
+2021
+2022
+2023
+
+
+ring group
+6411 dto 1 simultaneo
+6412 dto 2
+
+
+
+salidas de twinker
+
+linphone cuando llamo y corto muestra 
+--------------------------------------
+
+
+Twinkle> call 6411
+Twinkle>
+Line 1: received 100 Trying
+Line 1: received 180 Ringing
+Line 1: far end supports DTMF telephone event.
+Line 1: received 183 Session Progress
+Line 1: far end answered call.
+200 OK
+To: sip:6411@sip.jota.ar
+Line 1: far end ended call.
+
+
+
+
+cuando atiendo muestra 
+---------------------------
+
+
+Twinkle> call 6411
+Twinkle>
+Line 1: received 100 Trying
+Line 1: received 180 Ringing
+Line 1: far end supports DTMF telephone event.
+Line 1: far end answered call.
+200 OK
+To: sip:6411@sip.jota.ar
+LLAMADA CONTESTADA
+Line 1: far end ended call.
+
+
+
+SIN USUARIOS
+-----------------
+call 6415
+Twinkle>
+Line 1: received 100 Trying
+Line 1: far end supports DTMF telephone event.
+Line 1: received 183 Session Progress
+Line 1: call failed.
+480 Temporarily Unavailable
+
+
+
+sudo nano /etc/asound.conf
+
+
+  GNU nano 5.4                              /etc/asound.conf
+pcm.!default {
+  type pulse
+  fallback "sysdefault"
+  hint {
+    show on
+    description "Default ALSA Output (currently PulseAudio Sound Server)"
+  }
+}
+ctl.!default {
+  type pulse
+  fallback "sysdefault"
+}
+
+
+
+nano /etc/wpa_supplicant/wpa_supplicant.conf
+ nmcli device wifi connect "TeleCentro Wifi"
+ sudo iwlist wlan0 scan
+ sudo ifconfig wlan0 hw ether DA:8A:55:CA:D1:FF
+ 
+ 
+ linphonecsh
+
+register sip:192.168.0.200:5060 1000 Nicolas01
+call sip:2002@192.168.0.200 --early-media
+
+
+
+ register --host 192.168.0.200 --username 1000 --password Nicolas01
+ 
+ ------------------------ register sip:1000@192.168.0.200:5060 1000 Nicolas01
+
+
+ call CONTACTO
+linphonec> call sip:2002@192.168.0.200 --early-media
+call sip:2002@192.168.0.200 --early-media
+--early-media : sends audio and video stream immediately when remote proposes early media.
+
+
+
+linphonec> help
+Commands are:
+---------------------------
+      help      Print commands help.
+    answer      Answer a call
+autoanswer      Show/set auto-answer mode
+      call      Call a SIP uri or number
+     calls      Show all the current calls with their id and status.
+ call-logs      Calls history
+    camera      Send camera output for current call.
+      chat      Chat with a SIP uri
+conference      Create and manage an audio conference.
+  duration      Print duration in seconds of the last call.
+  firewall      Set firewall policy
+    friend      Manage friends
+      ipv6      Use IPV6
+      mute      Mute microphone and suspend voice transmission.
+       nat      Set nat address
+     pause      pause a call
+      play      play a wav file
+playbackga      Adjust playback gain.
+     proxy      Manage proxies
+    record      record to a wav file
+    resume      resume a call
+ soundcard      Manage soundcards
+      stun      Set stun server address
+ terminate      Terminate a call
+  transfer      Transfer a call to a specified destination.
+    unmute      Unmute microphone and resume voice transmission.
+    webcam      Manage webcams
+      quit      Exit linphonec
+	  
+	  
+	  
+	  
+	  
+	  
+	  QR LINPHONE
+	  https://subscribe.linphone.org/api#get-provisioningqrcodeprovisioningtokenresetpassword
+	  
+	  
+	  
+	  
+	  
+	  
+	  WIFIIIIIIIIII
+	  
+	    
+	  
+	  sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=AR
+
+network={
+        ssid="Vitruvio"
+        psk="Nicolas01"
+        key_mgmt=WPA-PSK
+    priority=3
+}
+network={
+        ssid="iPhone de Nicolas"
+        psk="12345678"
+        key_mgmt=WPA-PSK
+    priority=1
+}
+
+network={
+        ssid="TeleCentro Wifi"
+         priority=2
+}
+
+
+
+
+restart
+sudo systemctl restart wpa_supplicant
+leer lista de wifi de manera simplificada
+iwlist wlan0 scan | egrep "ESSID|Encryption"
+
+
+set MAC adreess
+sudo nano /etc/network/interfaces.d/wlan0
+
+
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+    hwaddress ether DA:8A:55:CA:D1:FF
+
+
+sudo ifdown wlan0
+sudo ifup wlan0
+
+
+sino se conecta automatico agregar al ejecucion al inicio 
+
+sudo nano /etc/rc.local
+#!/bin/sh -e
+#
+# rc.local
+#
+# Este script se ejecuta al final de cada inicio.
+# Añade comandos aquí para ejecutarlos al inicio.
+
+# Agrega los comandos para desactivar y activar wlan0
+sudo ifdown wlan0
+sudo ifup wlan0
+
+exit 0
+
+
+antes de exit 0
+
+y depues dale permiso
+
+sudo chmod +x /etc/rc.local
+
+rc local tira bardo tenes que hacer igconfig down y  up 
+
+ifup wlan0 ,,,NADA ,, ifconfig wlan0 up , nada ifconfig wlan0 down , ifconfig wlan0 up ANDA
+ifdown wlan0
+ifconfig wlan0 down
+ifconfig wlan0 up
+
+------------------------------
+memo nueva
+
+apt-get install  mc
+apt-get isntall aptitude
+sudo apt update
+sudo apt upgrade
+
+instalando linphonec
+sudo apt-get install build-essential autoconf automake libtool libasound2-dev libpulse-dev libssl-dev libxml2-dev libx11-dev libspeexdsp-dev libgsm1-dev libopus-dev libvpx-dev libavcodec-dev libavformat-dev libswscale-dev libavutil-dev libsqlite3-dev libcurl4-openssl-dev libzrtpcpp-dev
+ apt-get install linphone-common linphone-cli
+ no tenes que compilar nada , 
+  rm -rf .local/share/linphone
+  
+  mkdir -p /root/.local/share/linphone
+touch /root/.local/share/linphone/linphone.db
+sudo chmod 777 /root/.local/share/linphone/linphone.db
+sudo linphonecsh init
+linphonecsh register --host sip.jota.ar --username 1000 --password Nicolas01
+sudo linphonecsh register --host 192.168.0.200 --username 1000 --password Nicolas01
+ERROR: Failed to connect pipe: Connection refused
+
+root@portero:/home/admin/fenixTecno# linphonecsh init
+root@portero:/home/admin/fenixTecno# linphonecsh register --host 192.168.0.200 --username 2000 --password Nicolas01
+r
+register sip:2000@192.168.0.200 192.168.0.200 Nicolas01
+
+probar
+call sip:2002@192.168.0.200 --early-media
+ setea audioy  video sin editar archivos aun , 
+ 
+ root@portero:/home/admin/fenixTecno# linphonecsh init
+root@portero:/home/admin/fenixTecno# sudo linphonecsh register --host 192.168.0.200 --username 1000 --password Nicolas01
+
+ anda
+ 
+ linphonec> webcam use 0
+Using video device V4L2: /dev/video0
+
+
+instalaar zerotier
+curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \  
+if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
+conectar a la vpn
+zerotier-cli join 41d49af6c2981a7e
+
+
+GITHUB
+
+git config --global user.name "Nicolas"
+git config --global user.email "nicolasmovil@gmail.com"
+git init
+git add .
+git commit -m "beta 0.44"
+git remote add origin https://github.com/nicolasmovil/PorteroVisor
+git push -u origin master
+nicolasmovil
+Cordoba266 o token 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
