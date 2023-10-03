@@ -1,0 +1,31 @@
+quiza puedo usar esto https://realpython.com/async-io-python/
+
+Mira lo que me está pasando es esto tengo una aplicación en Python que lo estoy usando en Raspian Os es una aplicación que ejecuta otro programa y después de darle alguna función se queda esperando dos respuestas la respuesta A Ejecuta De funcion de apagado y la respuesta B Debería activar un temporizador de 30 segundos total y después ir a funcion de apagado . El problema es que dentro de esos 30 segundos A automáticamente tengo que ejecutar el apagado pero cuando hice el programa con voz le pusiste un slip de 30 segundos y durante ese tiempo no detecto ninguna respuesta No sé si tengo que usar un subprocess o esto que te pasé al principio ¿Qué me recomiendas?
+Sources
+
+youtube video preview thumbnail
+youtube video preview thumbnail
+Answer
+Sí, es posible utilizar Async IO en Python para manejar la ejecución de múltiples tareas de forma asíncrona. Async IO es una biblioteca de Python que permite crear funciones llamadas "coroutines" que son capaces de pausar para permitir que se ejecute otra coroutine. Con Async IO, puedes manejar la ejecución de múltiples tareas sin bloquear el hilo principal de ejecución.
+Para utilizar Async IO en tu aplicación de Python en Raspbian OS, necesitarás instalar la biblioteca asyncio y utilizar las funciones async y await en tu código. Puedes encontrar más información sobre cómo utilizar Async IO en Python en la documentación oficial de Python
+1
+.
+En cuanto a tu problema específico, si necesitas esperar durante 30 segundos antes de ejecutar una función de apagado, puedes utilizar la función asyncio.sleep() para pausar la ejecución de la coroutine durante ese tiempo. Por ejemplo, puedes crear una coroutine que espere durante 30 segundos antes de ejecutar la función de apagado de la siguiente manera:
+python
+import asyncio
+
+async def apagado_con_temporizador():
+    # Ejecutar la función de apagado
+    ejecutar_apagado()
+
+    # Esperar durante 30 segundos
+    await asyncio.sleep(30)
+
+    # Ejecutar la función de apagado de nuevo
+    ejecutar_apagado()
+
+Luego, puedes llamar a esta coroutine desde tu código principal utilizando la función asyncio.run() de la siguiente manera:
+python
+asyncio.run(apagado_con_temporizador())
+
+Recuerda que para utilizar Async IO en tu aplicación de Python, necesitarás asegurarte de que todas las funciones que utilices sean compatibles con Async IO y que utilices las funciones async y await correctamente.
