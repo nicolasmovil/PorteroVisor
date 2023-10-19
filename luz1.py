@@ -1,13 +1,13 @@
 import RPi.GPIO as GPIO
 import time
 
-# Definición de los pines GPIO para los LEDs
+# DefiniciÃ³n de los pines GPIO para los LEDs
 pin_led1 = 16
 pin_led2 = 26
 pin_led3 = 13
 pin_led4 = 6
 
-# Configuración de los pines GPIO
+# ConfiguraciÃ³n de los pines GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pin_led1, GPIO.OUT)
 GPIO.setup(pin_led2, GPIO.OUT)
