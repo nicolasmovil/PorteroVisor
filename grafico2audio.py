@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import os
 
-# Asignación de pines GPIO a botones
+# AsignaciÃ³n de pines GPIO a botones
 button_map = {
       7: "1",
      11: "2",
@@ -23,7 +23,7 @@ button_map = {
 
 }
 
-# Configuración de GPIO
+# ConfiguraciÃ³n de GPIO
 GPIO.setmode(GPIO.BCM)
 for pin in button_map.keys():
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -31,7 +31,7 @@ for pin in button_map.keys():
 history = []
 max_history_length = 10
 
-# Bucle infinito para detectar pulsaciones del botón en cada GPIO
+# Bucle infinito para detectar pulsaciones del botÃ³n en cada GPIO
 while True:
     # Crear un diccionario para almacenar el estado de los botones
     button_states = {label: " " for label in button_map.values()}
@@ -45,7 +45,7 @@ while True:
             if len(history) > max_history_length:
                 history.pop(0)
 
-            # Agregar funcionalidad para hacer que espeak diga un número específico
+            # Agregar funcionalidad para hacer que espeak diga un nÃºmero especÃ­fico
             if label == "1":
                 os.system('echo "1" | festival --tts --language spanish')
             elif label == "2":
@@ -82,7 +82,7 @@ while True:
     # Limpiar la pantalla
     print("\033c", end="")
 
-    # Mostrar el diseño de los botones
+    # Mostrar el diseÃ±o de los botones
     print(" [  1  ] [  2  ] [  3  ] [  A  ]")
     print(" [  4  ] [  5  ] [  6  ] [  B  ]")
     print(" [  7  ] [  8  ] [  9  ] [  C  ]")
