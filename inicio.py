@@ -2,7 +2,19 @@ import RPi.GPIO as GPIO
 import time
 import subprocess
 
-# Asignación de pines GPIO a botones
+# Agrega la ejecuciÃ³n de whatchdog.py aquÃ­
+subprocess.Popen(["sudo", "python3", "whatchdog.py"])
+
+# Desactivar la interfaz wlan0
+#subprocess.run(["sudo", "ifconfig", "wlan0", "down"])
+
+# Esperar 5 segundos
+#time.sleep(10)
+
+# Activar la interfaz wlan0
+#subprocess.run(["sudo", "ifconfig", "wlan0", "up"])
+
+# AsignaciÃ³n de pines GPIO a botones
 button_map = {
     7: "1",
     11: "2",
@@ -22,7 +34,7 @@ button_map = {
     3: "D"
 }
 
-# Configuración de GPIO
+# ConfiguraciÃ³n de GPIO
 GPIO.setmode(GPIO.BCM)
 for pin, label in button_map.items():
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -32,17 +44,17 @@ print("\033c", end="")
 
 print("MODO ESPERA DE INGRESO DE BOTON")
 
-# Bucle infinito para detectar pulsaciones del botón en cada GPIO
+# Bucle infinito para detectar pulsaciones del botÃ³n en cada GPIO
 try:
     while True:
         for pin, label in button_map.items():
             current_state = GPIO.input(pin)
 
             if current_state == GPIO.LOW and label in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "A", "B", "C", "D", "X", "E"]:
-                print(f"DETECTADO BOTÓN {label} PRESIONADO")
-                # Ejecutar llamar.py seguido del botón presionado (por ejemplo, "llamar.py 2" para el botón 2)
-                subprocess.Popen(["python3", "llamar.py", label])
-                subprocess.Popen(["python3", "llamadaluz.py"])
+                print(f"DETECTADO BOTÃN {label} PRESIONADO")
+                # Ejecutar llamar.py seguido del botÃ³n presionado (por ejemplo, "llamar.py 2" para el botÃ³n 2)
+                subprocess.Popen(["python3", "/home/admin/fenixTecno/llamar.py", label])
+                subprocess.Popen(["python3", "/home/admin/fenixTecno/llamadaluz.py"])
                 time.sleep(5)
  
         time.sleep(0.1)
