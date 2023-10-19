@@ -25,15 +25,30 @@ for dirpath, dirnames, filenames in os.walk(ruta_carpeta):
 
 # Sube cada archivo al repositorio
 for archivo in archivos:
+    # Calcula la ruta relativa del archivo en la carpeta
+    ruta_relativa = os.path.relpath(archivo, ruta_carpeta)
+
+    # Verifica si el archivo ya existe en el repositorio
     try:
+        contenido_archivo = repo.get_contents(ruta_relativa, ref="master")
+    except Exception as e:
+        contenido_archivo = None
+
+    if contenido_archivo:
+        # El archivo existe, obtÃ©n su "sha" para actualizarlo
+        sha = contenido_archivo.sha
+
         # Lee el contenido del archivo con codificaciÃ³n Latin-1
         with open(archivo, 'r', encoding='latin-1') as file:
             contenido_archivo = file.read()
 
-        # Calcula la ruta relativa del archivo en la carpeta
-        ruta_relativa = os.path.relpath(archivo, ruta_carpeta)
+        # Actualiza el archivo en el repositorio
+        repo.update_file(ruta_relativa, mensaje_commit, contenido_archivo, sha, branch="master")
+    else:
+        # El archivo no existe, crÃ©alo en el repositorio
+        with open(archivo, 'r', encoding='latin-1') as file:
+            contenido_archivo = file.read()
 
-        # Sube el contenido al archivo en el repositorio
+        # Crea el archivo en el repositorio
         repo.create_file(ruta_relativa, mensaje_commit, contenido_archivo, branch="master")
-    except Exception as e:
-        print(f"Error al cargar {ruta_relativa}: {str(e)}")
+
