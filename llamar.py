@@ -28,17 +28,17 @@ extension_map = {
     "E": "3000"
 }
 
-# Leer el atributo con el que se ejecutó la aplicación
+# Leer el atributo con el que se ejecutÃ³ la aplicaciÃ³n
 if len(sys.argv) == 2:
     extension_key = sys.argv[1]
 else:
     extension_key = "2"  # Valor por defecto
 
-# Obtener la extensión correspondiente
+# Obtener la extensiÃ³n correspondiente
 extension = extension_map.get(extension_key, "2")
 
 # Enviar comando "call"
-print(f"Llamando a la extensión {extension}...")
+print(f"Llamando a la extensiÃ³n {extension}...")
 p.stdin.write(f"call {extension} --early-media\n".encode())
 p.stdin.flush()
 
