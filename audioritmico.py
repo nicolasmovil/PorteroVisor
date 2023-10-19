@@ -2,20 +2,20 @@ import RPi.GPIO as GPIO
 import sounddevice as sd
 import numpy as np
 
-# Definición de los pines GPIO para los LEDs
+# DefiniciÃ³n de los pines GPIO para los LEDs
 pin_led4 = 16
 pin_led3 = 26
 pin_led2 = 13
 pin_led1 = 6
 
-# Configuración de los pines GPIO
+# ConfiguraciÃ³n de los pines GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pin_led1, GPIO.OUT)
 GPIO.setup(pin_led2, GPIO.OUT)
 GPIO.setup(pin_led3, GPIO.OUT)
 GPIO.setup(pin_led4, GPIO.OUT)
 
-# Función para procesar el audio
+# FunciÃ³n para procesar el audio
 def audio_callback(indata, frames, time, status):
     if status:
         print(status, flush=True)
@@ -23,16 +23,16 @@ def audio_callback(indata, frames, time, status):
     # Calcula la intensidad promedio del audio
     audio_intensity = np.abs(indata).mean()
 
-    # Ajusta el umbral de detección de sonido según sea necesario
+    # Ajusta el umbral de detecciÃ³n de sonido segÃºn sea necesario
     umbral = 0.1
 
     if audio_intensity > umbral:
         print("Sonido detectado!")
 
-        # Calcula el número de LEDs a encender basado en el nivel de decibeles
-        num_leds = int(audio_intensity * 10)  # Puedes ajustar este factor según tu preferencia
+        # Calcula el nÃºmero de LEDs a encender basado en el nivel de decibeles
+        num_leds = int(audio_intensity * 10)  # Puedes ajustar este factor segÃºn tu preferencia
 
-        # Asegura que el número de LEDs esté en el rango de 1 a 4
+        # Asegura que el nÃºmero de LEDs estÃ© en el rango de 1 a 4
         num_leds = min(max(num_leds, 1), 4)
 
         # Enciende los LEDs correspondientes
@@ -44,9 +44,9 @@ def audio_callback(indata, frames, time, status):
         
         GPIO.output([pin_led1, pin_led2, pin_led3, pin_led4], GPIO.LOW)
 
-# Configuración de SoundDevice
+# ConfiguraciÃ³n de SoundDevice
 sample_rate = 44100
-duration = 60  # Duración de la captura en segundos
+duration = 60  # DuraciÃ³n de la captura en segundos
 
 with sd.InputStream(callback=audio_callback, channels=1, samplerate=sample_rate):
     sd.sleep(duration * 1000)
